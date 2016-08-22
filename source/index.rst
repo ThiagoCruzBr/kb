@@ -8,8 +8,14 @@ Conteúdos:
 
 .. _vpn-guacamole:
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: VPN - Rede Privada Virtual
+   
+.. _docs-readthedocs:
+.. toctree::
+   :maxdepth: 1
+   :caption: A Arte de Documentar
 
    vpn-guacamole
+   docs-readthedocs
    
