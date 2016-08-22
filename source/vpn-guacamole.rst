@@ -13,7 +13,6 @@ Em resumo, a :ref:`instalação` e a :ref:`configuração` da solução será:
 
 Instalação
 ~~~~~~~~~~~~~~~~~~~
+Executar::
 
-Execute:
-
-        yum install httpd
+    yum install httpd
