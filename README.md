@@ -1,0 +1,2 @@
+# kb
+Base de conhecimento.
