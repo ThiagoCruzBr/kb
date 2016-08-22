@@ -1,4 +1,4 @@
-Instalando uma VPN com Guacamole
+VPN com Guacamole
 ===============================
 Veja como instalar e configurar o software Guacamole.
 
