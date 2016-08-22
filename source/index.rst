@@ -9,3 +9,6 @@ Conteúdos:
 .. toctree::
    :maxdepth: 2
    :caption: VPN com Guacamole
+
+   vpn-guacamole
+   servidor-web
