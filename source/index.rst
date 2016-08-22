@@ -2,7 +2,7 @@ Bem-Vindo a "Base de Conhecimento"
 ==================================
 Esta é uma documentação sobre vários assuntos. Veja se algum deles é interessante para ti.
 
-.. warning:: Este conteúdo está em formato **rst** (ReStructuredText) e utiliza o http://docs.readthedocs.io.
+.. note:: Este conteúdo está em formato **rst** (ReStructuredText) e utiliza o http://docs.readthedocs.io.
 
 Conteúdos:
 
