@@ -297,8 +297,9 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
     vi /etc/tomcat/server.xml
 
 .. highlight:: xml
-   :emphasize-lines: 27-28,72-75,95-100,103-104,148-153,
-   :lineons:
+  :emphasize-lines: 27-28,72-75,95-100,103-104,148-153,
+
+::
     <?xml version='1.0' encoding='utf-8'?>
      <!--
        Licensed to the Apache Software Foundation (ASF) under one or more
@@ -508,17 +509,18 @@ Agora, crie a página de erro com o conteúdo de exemplo::
     </source>
 
 Altere permissão::
-     chown tomcat:tomcat <LOCAL_INSTALAÇ O_APLICAÇÃO>/webapps/guacamole-0.9.9/error.html
+
+     chown tomcat:tomcat ../webapps/guacamole-0.9.9/error.html
 
 * **Ajustes Finos**
-** **Imagens** - substitua as imagens padrão para as novas (envie as suas imagens)::
+**Imagens** - substitua as imagens padrão para as novas (envie as suas imagens)::
 
     cd ../webapps/guacamole-0.9.9/images/
     mv logo-64.pnp logo-64.pnp.backup
     mv logo-144.pnp logo-144.pnp.backup
     mv guac-tricolor.pnp guac-tricolor.pnp.backup
 
-** **Idioma** - adicionar lingua portuguesa do Brasil (envie a sua tradução).:
+**Idioma** - adicionar lingua portuguesa do Brasil (envie a sua tradução).:
     cd ../webapps/guacamole-0.9.9/translations
     cp /tmp/pt_BR.json .
     chown tomcat:tomcat pt_BR.json
