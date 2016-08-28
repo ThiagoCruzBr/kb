@@ -297,13 +297,8 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
     vi /etc/tomcat/server.xml
 
 .. code-block:: xml
-
-    <?xml version='1.0' encoding='utf-8'?>
-      <!--
-        Licensed -->
-
-.. code-block:: xml
   :linenos:
+  :emphasize-lines: 27-28,72-75,95-100,103-104,148-153,
 
     <?xml version='1.0' encoding='utf-8'?>
      <!--
@@ -456,7 +451,7 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
              <!--
              <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                     prefix="localhost_access_log." suffix=".txt"
-                    pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+                    pattern="%h %l %u %t "%r" %s %b" />
              -->
            </Host>
          </Engine>
