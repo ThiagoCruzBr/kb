@@ -13,9 +13,11 @@ Em resumo, a :ref:`instalação` e a :ref:`configuração` da solução será:
 * **Compilador**:gcc
 * **Softwares**: Guacamole (0.9.9) e Extensões (banco de dados e ldap)
 
-.. image:: visao-geral-guacamole.png
-    :align: center
+.. figure:: visao-geral-guacamole.png
+    :scale:80 %
     :alt: Visão Geral - Gucamole
+
+    Diagrama da arquitetura da instalação do Guacamole e seus componentes feita nesta documentação.
 
 
 
