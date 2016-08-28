@@ -10,7 +10,7 @@ Em resumo, a :ref:`instalação` e a :ref:`configuração` da solução será:
 * **Servidor Web**: Apache (2.4.6)
 * **Servidor de Aplicação**: Tomcat (7.0.54)
 * **Banco de Dados**: MariaDB (5.5.47)
-* **Compilador**:gcc
+* **Compilador**: gcc
 * **Softwares**: Guacamole (0.9.9) e Extensões (banco de dados e ldap)
 
 .. figure:: visao-geral-guacamole.png
@@ -121,7 +121,7 @@ Componentes do Guacamole - dependências de pacotes
 .. _banco_de_dados:
 
 Banco de Dados
------------
+""""""""""""""
 
 A instalação do banco de dados e ajustes iniciais.
 
@@ -137,13 +137,14 @@ A instalação do banco de dados e ajustes iniciais.
     echo "mysql-username: guacamole_user" >> /etc/guacamole/guacamole.properties
     echo "mysql-password: <SENHA>" >> /etc/guacamole/guacamole.properties
 
-* **Instalar banco MariaDB** ::
+* **Instalar banco** ::
 
     yum install install mariadb-server
     systemctl start mariadb
     systemctl enable mariadb
 
-* **Melhorar segurança do banco**::
+* **Melhorar segurança do banco** ::
+
     mysql_secure_installation
 
 * **Criar conta e banco de dados** - criando banco e importando esquemas::
@@ -152,7 +153,7 @@ A instalação do banco de dados e ajustes iniciais.
     create database guacamole_db;
     create user 'guacamole_user'@'localhost' identified by 'SENHA';
     GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'guacamole_user'@'localhost';
-    flush privileges;
+    FLUSH PRIVILEGES;
     quit
 
 *  **Criando schema** - script com definições do esquema de dados::
@@ -164,9 +165,9 @@ A instalação do banco de dados e ajustes iniciais.
     yum update
 
 
-Ao iniciar os serviços, o sistema estará disponível em ``<IP_DO_SERVIDOR>:8080/guacamole-0.9.9/`` (usuário/senha padrão:``guacadmin``).
+Considerando que os serviços iniciaram corretamente, o sistema estará disponível em ``http://<IP_DO_SERVIDOR>:8080/guacamole-0.9.9/``
 
-.. note:: Troque a senha do guacadmin!
+.. note:: O usuário/senha padrão é ``guacadmin``. Troque a senha!
 
 
 .. _configuração:
@@ -181,13 +182,14 @@ Certificados
 """"""""""""
 Os certificados aqui gerados e configurados serão utilizados logo a frente, para:
 
-* **Apache** - certificado do site (HTTPS).
+* **Apache** - certificado do site (HTTPS) - crie ou importe um certificado.
 * **Tomcat** - certificado para o túnel entre Apache e Tomcat.
-** Gerar um certificado auto-assinado com o nome ``tomcat``, com validade de 90 dias. Fica armazenado no diretório home do usuário corrente, dentro da keystore chamada ``.keystore``::
+
+Gerar um certificado auto-assinado com o nome ``tomcat``, com validade de 90 dias. Ficará armazenado no diretório home do usuário corrente, dentro da keystore chamada ``.keystore``::
 
     keytool -genkey -alias tomcat -keyalg RSA
 
-    #### Exemplo na geração do certificado
+    #### Exemplo na geração do certificado ####
     Enter keystore password: <XXXX_SENHA_XXXX>
     Re-enter new password: <XXXX_SENHA_XXXX>
     What is your first and last name?
@@ -209,7 +211,7 @@ Os certificados aqui gerados e configurados serão utilizados logo a frente, par
 
 Ao final, mova o arquivo para uma pasta de acesso do Tomcat::
 
-    mv /root/.keystore /usr/share/tomcat/.keystore
+    mv ~/.keystore /usr/share/tomcat/.keystore
 
 * **LDAP** - exporte o certificado do Active Directory e importe o certificado para o utilização do LDAPS::
 
@@ -222,7 +224,7 @@ Para verificar se o certificado foi importado, liste os certificados do cacerts:
 Apache
 """""""""
 
-Será o serviço responsável por receber as solicitações do usuários e aplicando criptografia no canal (HTTPS) e encaminhar para o webserver Tomcat. O encaminhamento (proxying) do Apache para o Tomcat é feito utilizando também criptografia. Uma configuração de exemplo do Apache poderá ser::
+Será o serviço responsável por receber as solicitações do usuários e aplicando criptografia no canal (HTTPS) e encaminhar para o Tomcat. O encaminhamento (proxying) do Apache para o Tomcat é feito utilizando também criptografia. Uma configuração de exemplo do Apache poderá ser.
 
 * **ServerTokens** - ocultar informações sobre apache
 * **Strict-Transport-Security** - habilitar o HSTS:
@@ -242,7 +244,6 @@ Será o serviço responsável por receber as solicitações do usuários e aplic
             CustomLog /var/log/httpd/vpn.tcbk.org-access.log common env=!loopback
             ErrorLog /var/log/httpd/vpn.tcbk.org-error.log
     </VirtualHost>
-
     <VirtualHost *:443>
             ServerName vpn.tcbk.org
             ServerAlias vpn.tcbk.org
@@ -269,6 +270,7 @@ Será o serviço responsável por receber as solicitações do usuários e aplic
             ErrorLog /var/log/httpd/vpn.tcbk.org-error_ssl.log
     </VirtualHost>
 
+
 Alguns outros ajustes e também questões de segurança::
 
     vi /etc/httpd/conf.d/ssl.conf
@@ -292,13 +294,13 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
 
 * **Server > port** - destivar porta de shutdown
 * **Listener > SSLEngine** - habilitar SSL
-* **Connector > server** - alterar nome utilizado para evitar expor versão do tomcat.::
+* **Connector > server** - alterar nome utilizado para evitar expor versão do tomcat ::
 
     vi /etc/tomcat/server.xml
 
 .. code-block:: xml
   :linenos:
-  :emphasize-lines: 27-28,72-75,95-100,103-104,148-153
+  :emphasize-lines: 27-28,71-75,95-100,103-104,148-153
 
     <?xml version='1.0' encoding='utf-8'?>
      <!--
@@ -464,15 +466,14 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
     vi /usr/share/tomcat/conf/context.xml
 
 .. code-block:: xml
+  :emphasize-lines: 1-2
+
      <!-- Restringe Acesso ao Tomcat-->
        <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" />
 
 
-Por fim, caso não seja necessário, remova aplicações exemplo que vem com o Tomcat (examples, host-manager, manager, ROOT, sample). Exemplo::
+Por fim, caso não seja necessário, remova aplicações exemplo que vem com o Tomcat (``examples, host-manager, manager, ROOT, sample``).
 
-
-    ls /var/lib/tomcat/webapps
-    guacamole-0.9.9  guacamole-0.9.9.war
 
 * **Página de Erro** - para tratar páginas de erros, edite o arquivo abaixo e inclua as linhas em destaque::
 
@@ -480,6 +481,8 @@ Por fim, caso não seja necessário, remova aplicações exemplo que vem com o T
 
 .. code-block:: xml
   :lineons:
+  :emphasize-lines: 10-13
+
       <!-- here, so be sure to include any of the default values that you wish  -->
       <!-- to use within your application.                                       -->
      . . .
@@ -494,11 +497,13 @@ Por fim, caso não seja necessário, remova aplicações exemplo que vem com o T
             </error-page>
     </web-app>
 
+
 Agora, crie a página de erro com o conteúdo de exemplo::
 
     vi ../webapps/guacamole-0.9.9/error.html
 
 .. code-block:: html
+
     <head>
     <title>404</title>
     </head>
@@ -507,6 +512,7 @@ Agora, crie a página de erro com o conteúdo de exemplo::
     Verifique o nome digitado.
     </body>
     </source>
+
 
 Altere permissão::
 
@@ -520,7 +526,8 @@ Altere permissão::
     mv logo-144.pnp logo-144.pnp.backup
     mv guac-tricolor.pnp guac-tricolor.pnp.backup
 
-**Idioma** - adicionar lingua portuguesa do Brasil (envie a sua tradução).:
+**Idioma** - adicionar lingua portuguesa do Brasil (envie a sua tradução).::
+
     cd ../webapps/guacamole-0.9.9/translations
     cp /tmp/pt_BR.json .
     chown tomcat:tomcat pt_BR.json
