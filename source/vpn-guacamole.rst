@@ -300,7 +300,7 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
 
 .. code-block:: xml
   :linenos:
-  :emphasize-lines: 27-28,71-75,95-100,103-104,148-153
+  :emphasize-lines: 22,27-28,71-75,95-100,103-104,148-153
 
     <?xml version='1.0' encoding='utf-8'?>
      <!--
@@ -531,3 +531,26 @@ Altere permissão::
     cd ../webapps/guacamole-0.9.9/translations
     cp /tmp/pt_BR.json .
     chown tomcat:tomcat pt_BR.json
+
+
+LDAP - Active Directory
+"""""""""""""""""""""""
+
+Para permitir a integração ao sistema de diretório (Active Directory) sem a necessidade de alterar seu esquema, o que é considerado um pouco intrusivo, utiliza-se a extensão LDAP da seguinte forma::
+
+    vi ../guacamole.properties
+
+    # LDAP - Integracao com Active Directory
+    ldap-hostname: dominio.tckb.org
+    ldap-port: 636
+    ldap-encryption-method: ssl
+    ldap-user-base-dn: OU=usuarios,DC=dominio,DC=tckb,DC=org
+    ldap-search-bind-dn: CN=guacamole_servico,OU=contas_servicos,DC=dominio,DC=tckb,DC=org
+    ldap-search-bind-password: XXXX_SENHA_XXXX
+    ldap-username-attribute: sAMAccountName
+
+Reinicie o serviço para validar aplicar as configuraçôes e veja logs para mais informações e debug::
+
+    systemctl restart tomcat
+
+Pronto! A aplicação pode ser utilizada.
