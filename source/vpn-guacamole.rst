@@ -296,8 +296,14 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
 
     vi /etc/tomcat/server.xml
 
-.. highlight:: xml
-  :emphasize-lines: 27-28,72-75,95-100,103-104,148-153,
+.. code-block:: xml
+
+    <?xml version='1.0' encoding='utf-8'?>
+      <!--
+        Licensed -->
+
+.. code-block:: xml
+  :lineons:
 
 ::
     <?xml version='1.0' encoding='utf-8'?>
