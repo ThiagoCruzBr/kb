@@ -297,12 +297,14 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
     vi /etc/tomcat/server.xml
 
 .. code-block:: xml
+
     <?xml version='1.0' encoding='utf-8'?>
       <!--
         Licensed -->
 
 .. code-block:: xml
   :linenos:
+
     <?xml version='1.0' encoding='utf-8'?>
      <!--
        Licensed to the Apache Software Foundation (ASF) under one or more
