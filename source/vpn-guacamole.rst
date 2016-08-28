@@ -296,7 +296,7 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
 
     vi /etc/tomcat/server.xml
 
-.. code-block:: xml
+.. highlight:: xml
    :emphasize-lines: 27-28,72-75,95-100,103-104,148-153,
    :lineons:
     <?xml version='1.0' encoding='utf-8'?>
@@ -462,24 +462,22 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
 
     vi /usr/share/tomcat/conf/context.xml
 
-.. code-block: xml
+.. code-block:: xml
      <!-- Restringe Acesso ao Tomcat-->
        <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" />
 
 
 Por fim, caso não seja necessário, remova aplicações exemplo que vem com o Tomcat (examples, host-manager, manager, ROOT, sample). Exemplo::
 
+
     ls /var/lib/tomcat/webapps
-
     guacamole-0.9.9  guacamole-0.9.9.war
-
-
 
 * **Página de Erro** - para tratar páginas de erros, edite o arquivo abaixo e inclua as linhas em destaque::
 
     vi /var/lib/tomcat/conf/web.xml
 
-.. code-block: xml
+.. code-block:: xml
   :lineons:
       <!-- here, so be sure to include any of the default values that you wish  -->
       <!-- to use within your application.                                       -->
@@ -497,9 +495,9 @@ Por fim, caso não seja necessário, remova aplicações exemplo que vem com o T
 
 Agora, crie a página de erro com o conteúdo de exemplo::
 
-    vi <LOCAL_INSTALAÇ O_APLICAÇÃO>/webapps/guacamole-0.9.9/error.html
+    vi ../webapps/guacamole-0.9.9/error.html
 
-.. code-block: html
+.. code-block:: html
     <head>
     <title>404</title>
     </head>
