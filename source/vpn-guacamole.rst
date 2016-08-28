@@ -298,7 +298,6 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
 
 .. code-block:: xml
   :lineons:
-  
     <?xml version='1.0' encoding='utf-8'?>
       <!--
         Licensed -->
