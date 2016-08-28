@@ -15,7 +15,7 @@ Em resumo, a :ref:`instalação` e a :ref:`configuração` da solução será:
 
 
 
-. _instalação:
+.. _instalação:
 
 Instalação
 ~~~~~~~~~~~~~~~~~~~
@@ -111,7 +111,7 @@ Componentes do Guacamole - dependências de pacotes[4]
     ln -s /etc/guacamole/lib/mysql-connector-java-5.1.38-bin.jar /usr/share/tomcat/.guacamole/lib/
     ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat/.guacamole/
 
-. _banco_de_dados:
+.. _banco_de_dados:
 
 Banco de Dados
 ~~~~~~~~~~~~~~~~~~~
@@ -159,11 +159,11 @@ Com base na documentação[5], a utilização do banco de dados.
 
 Ao iniciar os serviços, o sistema estará disponível em ``<IP_DO_SERVIDOR>:8080/guacamole-0.9.9/`` (usuário/senha padrão:``guacadmin``).
 
-..note: Troque a senha do guacadmin!
+..note:: Troque a senha do guacadmin!
 
 Proceda agora com a :ref:`configuração`.
 
-. _configuração:
+.. _configuração:
 
 Configuração
 ~~~~~~~~~~~~~~~~~~~
