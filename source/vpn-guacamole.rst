@@ -18,7 +18,7 @@ Em resumo, a :ref:`instalação` e a :ref:`configuração` da solução será:
 .. _instalação:
 
 Instalação
-~~~~~~~~~~~~~~~~~~~
+-----------
 
 Desabilitar serviços que não são necessários::
 
@@ -159,7 +159,7 @@ Com base na documentação[5], a utilização do banco de dados.
 
 Ao iniciar os serviços, o sistema estará disponível em ``<IP_DO_SERVIDOR>:8080/guacamole-0.9.9/`` (usuário/senha padrão:``guacadmin``).
 
-..note:: Troque a senha do guacadmin!
+.. note:: Troque a senha do guacadmin!
 
 Proceda agora com a :ref:`configuração`.
 
