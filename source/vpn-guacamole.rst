@@ -1,6 +1,6 @@
 VPN com Guacamole
 ===============================
-Veja como instalar e configurar o software Guacamole.
+Veja como instalar e configurar o software `Guacamole <https://guacamole.incubator.apache.org/>`_.
 
 Visão Geral
 -----------
@@ -12,6 +12,10 @@ Em resumo, a :ref:`instalação` e a :ref:`configuração` da solução será:
 * **Banco de Dados**: MariaDB (5.5.47)
 * **Compilador**:gcc
 * **Softwares**: Guacamole (0.9.9) e Extensões (banco de dados e ldap)
+
+.. image:: visao-geral-guacamole.png
+    :align: center
+    :alt: Visão Geral - Gucamole
 
 
 
@@ -43,9 +47,9 @@ Instalar e pacotes::
 
 . _Guacamole e Componentes:
 
-A documentação[2] e os downloads[3] do softwares são:
+A `documentação<https://guacamole.incubator.apache.org/doc/0.9.9/gug/>`_ e os `downloads<https://guacamole.incubator.apache.org/releases/0.9.9/>`_ do softwares são:
 
-Componentes do Guacamole - dependências de pacotes[4]
+Componentes do Guacamole - dependências de pacotes
 
 * **Repositórios necessários**::
 
@@ -67,7 +71,7 @@ Componentes do Guacamole - dependências de pacotes[4]
     wget http://dev.mysql.com/get/Downloads/Connector/j/mysql-connector-java-5.1.38.tar.gz
     wget https://sourceforge.net/projects/guacamole/files/current/extensions/guacamole-auth-ldap-0.9.9.tar.gz
 
-* **Descompactar Guacamole e extensões** - extensões para integração com banco de dados MySQL e LDAP::
+* **Descompactar Guacamole e extensões** - extensões para integração com banco de dados e com o LDAP::
 
     tar -xzf guacamole-server-0.9.9.tar.gz
     tar -xzf guacamole-auth-jdbc-0.9.9.tar.gz
@@ -114,14 +118,14 @@ Componentes do Guacamole - dependências de pacotes[4]
 .. _banco_de_dados:
 
 Banco de Dados
-~~~~~~~~~~~~~~~~~~~
+-----------
 
-Com base na documentação[5], a utilização do banco de dados.
+A instalação do banco de dados e ajustes iniciais.
 
 .. note:: Armazene as senhas em local seguro!
 
 
-* **Propriedades do Guacamole** - essas são as configurações iniciais para subir o serviço.[6]::
+* **Propriedades do Guacamole** - essas são as configurações iniciais para subir o serviço com o banco de dados::
 
     echo "# Configurações do Banco MySQL" >> /etc/guacamole/guacamole.properties
     echo "mysql-hostname: localhost" >> /etc/guacamole/guacamole.properties
@@ -130,7 +134,7 @@ Com base na documentação[5], a utilização do banco de dados.
     echo "mysql-username: guacamole_user" >> /etc/guacamole/guacamole.properties
     echo "mysql-password: <SENHA>" >> /etc/guacamole/guacamole.properties
 
-* **Instalar banco MariaDB** - caso necessário (utillizado na homologação) foi instalado um banco de dados local [7]::
+* **Instalar banco MariaDB** ::
 
     yum install install mariadb-server
     systemctl start mariadb
@@ -152,7 +156,7 @@ Com base na documentação[5], a utilização do banco de dados.
 
     cat guacamole-auth-jdbc-0.9.9/mysql/schema/*.sql | mysql -u root -p guacamole_db
 
-* **Finalizando a Instalação** 0 atualizar pacotes::
+* **Finalizando a Instalação** - atualizar pacotes::
 
     yum update
 
@@ -166,6 +170,11 @@ Proceda agora com a :ref:`configuração`.
 .. _configuração:
 
 Configuração
-~~~~~~~~~~~~~~~~~~~
+-----------
 
-Após a instalação do serviço, a configuração foi feita com base na documentação do fabricante[1], fórum e mais informações [2]
+Após a instalação do serviço, a configuração foi feita com base na documentação do fabricante, fórum e boas práticas.
+
+Certificados
+Os certificados aqui gerados e configurados serão utilizados logo a frente, para:
+Apache - certificado do site (HTTPS)
+Gerar ou utilizar certificado existente. O Local está definido na configuração do Apache
