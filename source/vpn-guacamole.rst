@@ -180,9 +180,8 @@ Após a instalação do serviço, a configuração foi feita com base na documen
 Certificados
 """"""""""""
 Os certificados aqui gerados e configurados serão utilizados logo a frente, para:
+
 * **Apache** - certificado do site (HTTPS).
-
-
 * **Tomcat** - certificado para o túnel entre Apache e Tomcat.
 ** Gerar um certificado auto-assinado com o nome ``tomcat``, com validade de 90 dias. Fica armazenado no diretório home do usuário corrente, dentro da keystore chamada ``.keystore``::
 
@@ -224,10 +223,11 @@ Apache
 """""""""
 
 Será o serviço responsável por receber as solicitações do usuários e aplicando criptografia no canal (HTTPS) e encaminhar para o webserver Tomcat. O encaminhamento (proxying) do Apache para o Tomcat é feito utilizando também criptografia. Uma configuração de exemplo do Apache poderá ser::
+
 * **ServerTokens** - ocultar informações sobre apache
 * **Strict-Transport-Security** - habilitar o HSTS:
 * **X-Frame-Options** - não permite que site site embutido (iframe) em outro site evitando ataques do tipo clickjacking.
-* **SetEnvIf** - definir o que não irá para log, para que não seja gerado muitos eventos que não são muito úteis. Caso de uma conexão é estabelecida e há tráfego de dados entre servidor guacamole e terminal remoto.
+* **SetEnvIf** - definir o que não irá para log, para que não seja gerado muitos eventos que não são muito úteis. Caso de uma conexão é estabelecida e há tráfego de dados entre servidor guacamole e terminal remoto.::
 
     vi /etc/httpd/conf.d/vpn.tckb.org.conf
 
@@ -289,9 +289,10 @@ Tomcat
 """"""
 
 Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as configurações abaixo são feitas. Observe os itens em destaque (``amarelo``) que foram alterados:
+
 * **Server > port** - destivar porta de shutdown
 * **Listener > SSLEngine** - habilitar SSL
-* **Connector > server** - alterar nome utilizado para evitar expor versão do tomcat.
+* **Connector > server** - alterar nome utilizado para evitar expor versão do tomcat.::
 
     vi /etc/tomcat/server.xml
 
@@ -474,7 +475,7 @@ Por fim, caso não seja necessário, remova aplicações exemplo que vem com o T
 
 
 
-* **Página de Erro** - para tratar páginas de erros, edite o arquivo abaixo e inclua as linhas em destaque:
+* **Página de Erro** - para tratar páginas de erros, edite o arquivo abaixo e inclua as linhas em destaque::
 
     vi /var/lib/tomcat/conf/web.xml
 
@@ -488,14 +489,14 @@ Por fim, caso não seja necessário, remova aplicações exemplo que vem com o T
             <welcome-file>index.htm</welcome-file>
             <welcome-file>index.jsp</welcome-file>
         </welcome-file-list>
-
             <error-page>
                     <error-code>404</error-code>
                     <location>/error.html</location>
             </error-page>
     </web-app>
 
-Agora, crie a página de erro com o conteúdo de exemplo e altere permissão:
+Agora, crie a página de erro com o conteúdo de exemplo::
+
     vi <LOCAL_INSTALAÇ O_APLICAÇÃO>/webapps/guacamole-0.9.9/error.html
 
 .. code-block: html
@@ -508,19 +509,18 @@ Agora, crie a página de erro com o conteúdo de exemplo e altere permissão:
     </body>
     </source>
 
-    chown tomcat:tomcat <LOCAL_INSTALAÇ O_APLICAÇÃO>/webapps/guacamole-0.9.9/error.html
-
+Altere permissão::
+     chown tomcat:tomcat <LOCAL_INSTALAÇ O_APLICAÇÃO>/webapps/guacamole-0.9.9/error.html
 
 * **Ajustes Finos**
-** **Imagens** - substitua as imagens padrão para as novas (envie as suas imagens):
+** **Imagens** - substitua as imagens padrão para as novas (envie as suas imagens)::
 
     cd ../webapps/guacamole-0.9.9/images/
     mv logo-64.pnp logo-64.pnp.backup
     mv logo-144.pnp logo-144.pnp.backup
     mv guac-tricolor.pnp guac-tricolor.pnp.backup
 
-** **Idioma** - adicionar lingua portuguesa do Brasil (envie a sua tradução).
-
+** **Idioma** - adicionar lingua portuguesa do Brasil (envie a sua tradução).:
     cd ../webapps/guacamole-0.9.9/translations
     cp /tmp/pt_BR.json .
     chown tomcat:tomcat pt_BR.json
