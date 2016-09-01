@@ -27,7 +27,7 @@ Em resumo, a :ref:`instalação` e a :ref:`configuração` da solução será:
 Instalação
 -----------
 
-Desabilitar serviços que não são necessários::
+Desabilitar serviços que não são necessários e que não serão utilizados::
 
     # Firewall
     systemctl disable firewalld
@@ -35,6 +35,7 @@ Desabilitar serviços que não são necessários::
     # Postfix
     systemctl disable postfix
     systemctl stop postix
+
     # SELinux
     setenforce 0
 
@@ -61,7 +62,7 @@ Componentes do Guacamole - dependências de pacotes
 
 * **Pacotes**::
 
-    yum -y install cairo-devel freerdp-devel gcc java-1.8.0-openjdk.x86_64 libguac libguac-client-rdp libguac-client-ssh libguac-client-vnc libjpeg-turbo-devel libpng-devel libssh2-devel libtelnet-devel libvncserver-devel libvorbis-devel libwebp-devel openssl-devel pango-devel pulseaudio-libs-devel terminus-fonts tomcat tomcat-admin-webapps tomcat-webapps uuid-devel
+    yum -y install cairo-devel freerdp-devel gcc java-1.8.0-openjdk.x86_64 libguac libguac-client-rdp libguac-client-ssh libguac-client-vnc libjpeg-turbo-devel libpng-devel libssh2-devel libtelnet-devel libvncserver-devel libvorbis-devel libwebp-devel openssl-devel pango-devel pulseaudio-libs-devel terminus-fonts tomcat tomcat-webapps uuid-devel
 
 * **Download Guacamole - v0.9.9** - realizar download do Guacamole a ser compilado::
 
@@ -98,13 +99,16 @@ Componentes do Guacamole - dependências de pacotes
 
 * **Configurar inicialização automática do guacd**::
 
-    chkconfig guacd on
+    systemctl enable guacd
+    systemctl start guacd
 
 * **Disponibilizando Arquivos** - após instalação dos componentes e extensões, disponibiliza-se para as devidas pastas::
 
+    cd ..
     cp guacamole-0.9.9.war /etc/guacamole
     ln -s /etc/guacamole/guacamole-0.9.9.war /var/lib/tomcat/webapps/
-    mv /usr/lib64/freerdp/guacdr.so /tmp
+    mv /usr/lib64/freerdp/guacsnd.so /usr/lib64/freerdp/guacsnd.so.old
+    mv /usr/lib64/freerdp/guacdr.so /usr/lib64/freerdp/guacdr.so.old
     ln -s /usr/local/lib/freerdp/* /usr/lib64/freerdp/.
 
     cp mysql-connector-java-5.1.38/mysql-connector-java-5.1.38-bin.jar /etc/guacamole/lib/
@@ -128,7 +132,7 @@ A instalação do banco de dados e ajustes iniciais.
 .. note:: Armazene as senhas em local seguro!
 
 
-* **Propriedades do Guacamole** - essas são as configurações iniciais para subir o serviço com o banco de dados::
+* **Propriedades do Guacamole** - essas são as configurações iniciais para subir o serviço com o banco de dados. Mudanças neste arquivo tornam necessário reiniciar o Tomcat.::
 
     echo "# Configurações do Banco MySQL" >> /etc/guacamole/guacamole.properties
     echo "mysql-hostname: localhost" >> /etc/guacamole/guacamole.properties
@@ -137,9 +141,11 @@ A instalação do banco de dados e ajustes iniciais.
     echo "mysql-username: guacamole_user" >> /etc/guacamole/guacamole.properties
     echo "mysql-password: <SENHA>" >> /etc/guacamole/guacamole.properties
 
+    systemctl restart tomcat
+
 * **Instalar banco** ::
 
-    yum install install mariadb-server
+    yum -y install install mariadb-server
     systemctl start mariadb
     systemctl enable mariadb
 
@@ -151,7 +157,7 @@ A instalação do banco de dados e ajustes iniciais.
 
     mysql -u root -p
     create database guacamole_db;
-    create user 'guacamole_user'@'localhost' identified by 'SENHA';
+    create user 'guacamole_user'@'localhost' identified by '<SENHA>';
     GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'guacamole_user'@'localhost';
     FLUSH PRIVILEGES;
     quit
