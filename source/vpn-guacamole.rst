@@ -188,7 +188,10 @@ Certificados
 """"""""""""
 Os certificados aqui gerados e configurados serão utilizados logo a frente, para:
 
-* **Apache** - certificado do site (HTTPS) - crie ou importe um certificado.
+* **Apache** - certificado do site (HTTPS) - crie ou importe um certificado (Veja mais sobre certificados digitais). :ref:`_CertificadosDigitais`)
+
+
+
 * **Tomcat** - certificado para o túnel entre Apache e Tomcat.
 
 Gerar um certificado auto-assinado com o nome ``tomcat``, com validade de 90 dias. Ficará armazenado no diretório home do usuário corrente, dentro da keystore chamada ``.keystore``::
