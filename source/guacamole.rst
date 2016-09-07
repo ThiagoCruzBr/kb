@@ -43,11 +43,12 @@ Desabilitar serviços que não são necessários e que não serão utilizados::
 
 Instalar e pacotes::
 
-    yum install tomcat
+    yum -y install tomcat
     systemctl start tomcat
     systemctl enable tomcat
 
-    yum install httpd
+    yum -y install httpd
+    yum -y install mod_ssl
     systemctl start httpd
     systemctl enable httpd
 
@@ -265,7 +266,7 @@ Será o serviço responsável por receber as solicitações do usuários e aplic
             ServerAlias guacamole.tckb.local
             ServerAlias guacamole
             SSLEngine On
-            SSLCertificateKeyFile /etc/ssl/private/guacamole_tckb_local_ssl.key
+            SSLCertificateKeyFile /etc/pki/tls/private/guacamole_tckb_local_ssl.key
             SSLCertificateFile /etc/ssl/certs/guacamole_tckb_local_ssl.cert
             RewriteEngine on
             SSLProxyEngine on

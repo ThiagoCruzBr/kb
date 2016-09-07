@@ -19,3 +19,10 @@ Conteúdos:
    :caption: A Arte de Documentar
 
    docs-readthedocs
+
+.. _CertificadosDigitais:
+.. toctree::
+    :maxdepth: 1
+    :caption: Certificados Digitais
+
+    CertificadosDigitais
