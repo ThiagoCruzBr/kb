@@ -14,9 +14,11 @@ No linux, há algumas formas de verificar informações de certificados, veja al
 * **Keytool**
 
 No Ubuntu::
+
     keytool -list -keystore /etc/ssl/certs/java/cacerts
 
 No RedHat::
+
     keytool -list -keystore /etc/pki/java/cacerts
 
 Exemplo de saída::
