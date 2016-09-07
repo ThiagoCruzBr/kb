@@ -194,7 +194,7 @@ Certificados
 """"""""""""
 Os certificados aqui gerados e configurados serão utilizados logo a frente, para:
 
-* **Apache** - certificado do site (HTTPS) - crie ou importe um certificado (Veja mais sobre `certificados digitais: <CertificadosDigitais.rst>`_)
+* **Apache** - certificado do site (HTTPS) - crie ou importe um certificado (Veja mais sobre `certificados digitais: <CertificadosDigitais.html>`_)
 
 
 
