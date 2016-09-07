@@ -31,15 +31,19 @@ Instalação
 
 Desabilitar serviços que não são necessários e que não serão utilizados::
 
-    # Firewall
     systemctl disable firewalld
     systemctl stop firewalld
-    # Postfix
+
     systemctl disable postfix
     systemctl stop postix
 
-    # SELinux
+SELinux -  Se não souber utilizar, desabilite ou coloque em modo permissivo::
+
     setenforce 0
+
+    vi /etc/sysconfig/selinux
+    SELINUX=permissive
+
 
 Instalar e pacotes::
 
@@ -479,7 +483,7 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
      </Server>
 
 
-* **Restringir Acesso** - para não permitir acesso direto ao Tomcat é necessário inserir o parâmetro abaixo::
+* **Restringir Acesso** - para não permitir acesso direto ao Tomcat é necessário inserir o parâmetro abaixo (dentro do ``<Context>``)::
 
     vi /usr/share/tomcat/conf/context.xml
 
@@ -490,15 +494,19 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
        <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.0\.0\.1" />
 
 
-Por fim, caso não seja necessário, remova aplicações exemplo que vem com o Tomcat (``examples, host-manager, manager, ROOT, sample``).
+Por fim, caso não seja necessário, remova aplicações exemplo que vem com o Tomcat (``examples, host-manager, manager, ROOT, sample``)::
+
+    rm -rf /usr/share/tomcat/webapps/{examples,host-manager,ROOT,manager,sample}
+
 
 
 * **Página de Erro** - para tratar páginas de erros, edite o arquivo abaixo e inclua as linhas em destaque::
 
-    vi /var/lib/tomcat/conf/web.xml
+    vi /usr/share/tomcat/conf/web.xml
+
 
 .. code-block:: xml
-  :lineons:
+  :linenos:
   :emphasize-lines: 10-13
 
       <!-- here, so be sure to include any of the default values that you wish  -->
