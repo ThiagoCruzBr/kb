@@ -176,6 +176,12 @@ Considerando que os serviços iniciaram corretamente, o sistema estará disponí
 .. note:: O usuário/senha padrão é ``guacadmin``. Troque a senha!
 
 
+
+
+
+
+
+
 .. _configuração:
 
 Configuração
@@ -188,7 +194,7 @@ Certificados
 """"""""""""
 Os certificados aqui gerados e configurados serão utilizados logo a frente, para:
 
-* **Apache** - certificado do site (HTTPS) - crie ou importe um certificado (Veja mais sobre certificados digitais). :ref:`_CertificadosDigitais`)
+* **Apache** - certificado do site (HTTPS) - crie ou importe um certificado (Veja mais sobre `certificados digitais: <CertificadosDigitais.rst>`_)
 
 
 
