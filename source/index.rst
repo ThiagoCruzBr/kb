@@ -6,12 +6,12 @@ Esta é uma documentação sobre vários assuntos. Veja se algum deles é intere
 
 Conteúdos:
 
-.. _vpn-guacamole:
+.. _guacamole:
 .. toctree::
    :maxdepth: 1
-   :caption: Rede Privada Virtual (VPN)
+   :caption: Gateway de Acesso
 
-   vpn-guacamole
+   guacamole
 
 .. _docs-readthedocs:
 .. toctree::
