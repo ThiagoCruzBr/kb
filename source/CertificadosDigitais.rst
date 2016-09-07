@@ -103,7 +103,7 @@ Veja como importar um certificado.
     keytool -importcert -keystore  /etc/ssl/certs/java/cacerts -file <CERTIFICADO.CER>
 
     \\ Com alias.
-    keytool -importcert -alias activedirectory:vtestead02 -keystore  /etc/ssl/certs/java/cacerts -file <CERTIFICADO.CER>
+    keytool -importcert -alias activedirectory:testead -keystore  /etc/ssl/certs/java/cacerts -file <CERTIFICADO.CER>
 
 * **Red Hat**:::
 

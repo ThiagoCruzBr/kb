@@ -1,6 +1,8 @@
-VPN com Guacamole
+Gateway de Acesso com Guacamole
 ===============================
-Veja como instalar e configurar o software `Guacamole <https://guacamole.incubator.apache.org/>`_.
+Veja como instalar e configurar um gateway de acesso utilizando o software `Guacamole <https://guacamole.incubator.apache.org/>`_.
+
+.. note:: Para utilizá-lo como uma VPN é recomendado outras camadas de segurança, como certificados digitais.
 
 Visão Geral
 -----------
@@ -194,8 +196,7 @@ Certificados
 """"""""""""
 Os certificados aqui gerados e configurados serão utilizados logo a frente, para:
 
-* **Apache** - certificado do site (HTTPS) - crie ou importe um certificado (Veja mais sobre `certificados digitais: <CertificadosDigitais.html>`_)
-
+* **Apache** - certificado do site (HTTPS) - crie ou importe um certificado (Veja mais sobre `certificados digitais: <CertificadosDigitais.html#gerar-um-certificado>`_)
 
 
 * **Tomcat** - certificado para o túnel entre Apache e Tomcat.
@@ -224,7 +225,7 @@ Gerar um certificado auto-assinado com o nome ``tomcat``, com validade de 90 dia
             (RETURN if same as keystore password):
 
 
-Ao final, mova o arquivo para uma pasta de acesso do Tomcat::
+O certificado gerado estará no diretório do usuário, mova o arquivo para uma pasta que o Tomcat tenha acesso::
 
     mv ~/.keystore /usr/share/tomcat/.keystore
 
@@ -246,26 +247,26 @@ Será o serviço responsável por receber as solicitações do usuários e aplic
 * **X-Frame-Options** - não permite que site site embutido (iframe) em outro site evitando ataques do tipo clickjacking.
 * **SetEnvIf** - definir o que não irá para log, para que não seja gerado muitos eventos que não são muito úteis. Caso de uma conexão é estabelecida e há tráfego de dados entre servidor guacamole e terminal remoto.::
 
-    vi /etc/httpd/conf.d/vpn.tckb.org.conf
+    vi /etc/httpd/conf.d/guacamole.tckb.local.conf
 
     ServerTokens Prod
     <VirtualHost *:80>
-            ServerName vpn.tcbk.org
-            ServerAlias vpn.tcbk.org
+            ServerName guacamole.tckb.local
+            ServerAlias guacamole.tckb.local
             ServerAlias vnp
             RewriteEngine on
-            RewriteRule "^/$" "https://vpn.tcbk.org/" [R]
+            RewriteRule "^/$" "https://guacamole.tckb.local/" [R]
             SetEnvIf Remote_Addr "::1" loopback
-            CustomLog /var/log/httpd/vpn.tcbk.org-access.log common env=!loopback
-            ErrorLog /var/log/httpd/vpn.tcbk.org-error.log
+            CustomLog /var/log/httpd/guacamole.tckb.local-access.log common env=!loopback
+            ErrorLog /var/log/httpd/guacamole.tckb.local-error.log
     </VirtualHost>
     <VirtualHost *:443>
-            ServerName vpn.tcbk.org
-            ServerAlias vpn.tcbk.org
-            ServerAlias vpn
+            ServerName guacamole.tckb.local
+            ServerAlias guacamole.tckb.local
+            ServerAlias guacamole
             SSLEngine On
-            SSLCertificateKeyFile /etc/ssl/private/dominio_tcbk.org_ssl.key
-            SSLCertificateFile /etc/ssl/certs/dominio_tcbk.org_ssl.cert
+            SSLCertificateKeyFile /etc/ssl/private/guacamole_tckb_local_ssl.key
+            SSLCertificateFile /etc/ssl/certs/guacamole_tckb_local_ssl.cert
             RewriteEngine on
             SSLProxyEngine on
             Header always set Strict-Transport-Security "max-age=15552000; includeSubdomains;"
@@ -281,10 +282,11 @@ Será o serviço responsável por receber as solicitações do usuários e aplic
             ProxyPassReverse ws://127.0.0.1:8443/guacamole-0.9.9/websocket-tunnel
     </Location>
             SetEnvIf Request_URI "^/tunnel" dontlog
-            CustomLog /var/log/httpd/vpn.tcbk.org-access_ssl.log common env=!dontlog
-            ErrorLog /var/log/httpd/vpn.tcbk.org-error_ssl.log
+            CustomLog /var/log/httpd/guacamole.tckb.local-access_ssl.log common env=!dontlog
+            ErrorLog /var/log/httpd/guacamole.tckb.local-error_ssl.log
     </VirtualHost>
 
+.. note:: WebSocket - apesar da configuração de websocket (ws) estar definida com Apache não funcionou corretamente :(
 
 Alguns outros ajustes e também questões de segurança::
 
@@ -412,7 +414,7 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
 
 
          <Connector
-                   protocol="HTTP/1.1"  server="VPN Server" URIEncoding="UTF-8"
+                   protocol="HTTP/1.1"  server="Guacamole Server" URIEncoding="UTF-8"
                    port="8443" maxThreads="150" address="127.0.0.1"
                    scheme="https" secure="true" SSLEnabled="true"
                    keystoreFile="/usr/share/tomcat/.keystore" keystorePass="XXX_SENHA_XXX"
@@ -556,11 +558,11 @@ Para permitir a integração ao sistema de diretório (Active Directory) sem a n
     vi ../guacamole.properties
 
     # LDAP - Integracao com Active Directory
-    ldap-hostname: dominio.tckb.org
+    ldap-hostname: guacamole.tckb.local
     ldap-port: 636
     ldap-encryption-method: ssl
-    ldap-user-base-dn: OU=usuarios,DC=dominio,DC=tckb,DC=org
-    ldap-search-bind-dn: CN=guacamole_servico,OU=contas_servicos,DC=dominio,DC=tckb,DC=org
+    ldap-user-base-dn: OU=usuarios,DC=tckb,DC=local
+    ldap-search-bind-dn: CN=guacamole_servico,OU=contas_servicos,DC=tckb,DC=local
     ldap-search-bind-password: XXXX_SENHA_XXXX
     ldap-username-attribute: sAMAccountName
 
