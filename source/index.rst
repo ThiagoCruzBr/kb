@@ -1,6 +1,6 @@
-Bem-Vindo a "Base de Conhecimento"
+Bem-Vindo a "Base de Conhecimento do TC"
 ==================================
-Esta é uma documentação sobre vários assuntos. Veja se algum deles é interessante para ti.
+Esta é uma documentação sobre vários assuntos de meu interesse. Veja se algum deles é para ti.
 
 .. note:: Este conteúdo está publicado em http://tckb.readthedocs.io/
 
