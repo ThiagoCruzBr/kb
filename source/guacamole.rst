@@ -284,6 +284,8 @@ Será o serviço responsável por receber as solicitações do usuários e aplic
             SSLProxyEngine on
             Header always set Strict-Transport-Security "max-age=15552000; includeSubdomains;"
             Header always append X-Frame-Options SAMEORIGIN
+            Header unset Etag
+            Header set X-XSS-Protection "1; mode=block"
     <Location />
             Require all granted
             ProxyPass https://127.0.0.1:8443/guacamole-0.9.9/ flushpackets=on
