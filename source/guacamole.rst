@@ -205,10 +205,9 @@ Certificados
 """"""""""""
 Os certificados aqui gerados e configurados serão utilizados logo a frente, para:
 
-* **Apache** - certificado do site (HTTPS) - crie ou importe um certificado (Veja mais sobre `certificados digitais: <CertificadosDigitais.html#gerar-um-certificado>`_)
+* **Servidor Web** - certificado do site (HTTPS). Crie ou importe um certificado (Veja como em `certificados digitais: <CertificadosDigitais.html#gerar-um-certificado>`_)
 
-
-* **Tomcat** - certificado para o túnel entre Apache e Tomcat.
+* **Tomcat** - certificado para o túnel entre o servidor web e o Tomcat.
 
 Gerar um certificado auto-assinado com o nome ``tomcat``, com validade de 90 dias. Ficará armazenado no diretório home do usuário corrente, dentro da keystore chamada ``.keystore``::
 
@@ -246,8 +245,13 @@ Para verificar se o certificado foi importado, liste os certificados do cacerts:
 
     keytool -list -keystore /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.101-3.b13.el7_2.x86_64/jre/lib/security/cacerts
 
+
+
+.. _Apache:
+
 Apache
 """""""""
+.. note:: WebSocket - Mesmo com a configuração de websocket (ws)  no Apache, o Web Socket não funcionou corretamente :(. Mas é possível utilizar o :ref:`NGINX`, faça sua escolha.
 
 Será o serviço responsável por receber as solicitações do usuários e aplicando criptografia no canal (HTTPS) e encaminhar para o Tomcat. O encaminhamento (proxying) do Apache para o Tomcat é feito utilizando também criptografia. Uma configuração de exemplo do Apache poderá ser.
 
@@ -275,7 +279,7 @@ Será o serviço responsável por receber as solicitações do usuários e aplic
             ServerAlias guacamole
             SSLEngine On
             SSLCertificateKeyFile /etc/pki/tls/private/guacamole_tckb_local_ssl.key
-            SSLCertificateFile /etc/ssl/certs/guacamole_tckb_local_ssl.cert
+            SSLCertificateFile /etc/ssl/certs/guacamole_tckb_local_ssl.crt
             RewriteEngine on
             SSLProxyEngine on
             Header always set Strict-Transport-Security "max-age=15552000; includeSubdomains;"
@@ -295,7 +299,6 @@ Será o serviço responsável por receber as solicitações do usuários e aplic
             ErrorLog /var/log/httpd/guacamole.tckb.local-error_ssl.log
     </VirtualHost>
 
-.. note:: WebSocket - apesar da configuração de websocket (ws) estar definida com Apache não funcionou corretamente :(
 
 Alguns outros ajustes e também questões de segurança::
 
@@ -313,6 +316,61 @@ Como o certificado do Tomcat é auto-assinado é necessário desativar a checage
     SSLProxyCheckPeerCN off
     SSLProxyCheckPeerName off
     SSLProxyCheckPeerExpire off
+
+.. _NGINX:
+
+NGINX
+""""""
+Com este servidor web o Web Socket funciona normalmente.
+
+    yum -y install nginx
+
+Uma das formas para redirecionar o tráfego para HTTPS é comentar parte do arquivo::
+
+    vi /etc/nginx/nginx.conf
+
+    #    server {
+    #        listen       80 default_server;
+    #        listen       [::]:80 default_server;
+    . . .
+    #        error_page 500 502 503 504 /50x.html;
+    #            location = /50x.html {
+    #        }
+    #    }
+
+Fazer as configurações no arquivo::
+
+    vi /etc/nginx/conf.d/guacamole.kos.local.conf
+
+    map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+    }
+    server_tokens off;
+    server {
+            listen 80 default_server;
+            listen [::]:80 default_server;
+            server_name _;
+            return 301 https://$host$request_uri;
+    }
+    server {
+        listen 443;
+        ssl on;
+        ssl_certificate   /etc/ssl/certs/guacamole.kos.local.crt;
+        ssl_certificate_key /etc/pki/tls/private/guacamole.kos.local.key;
+        add_header X-Frame-Options "SAMEORIGIN";
+        add_header Strict-Transport-Security "max-age=15552000; includeSubDomains" always;
+        location / {
+            proxy_pass https://localhost:8443/guacamole-0.9.9/;
+            proxy_buffering off;
+            proxy_http_version 1.1;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_cookie_path /guacamole/ /;
+            access_log off;
+        }
+    }
 
 
 Tomcat
