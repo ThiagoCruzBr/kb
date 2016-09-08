@@ -47,6 +47,10 @@ SELinux -  Se não souber utilizar, desabilite ou coloque em modo permissivo::
 
 Instalar e pacotes::
 
+    yum -y install haveged
+    systemctl start haveged
+    systemctl enable haveged
+
     yum -y install tomcat
     systemctl start tomcat
     systemctl enable tomcat
