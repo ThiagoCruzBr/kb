@@ -299,11 +299,13 @@ Alguns outros ajustes e também questões de segurança::
 
     # Desatibilita protocolos fracos/vulneraveis
     SSLProtocol All -SSLv2 -SSLv3
+
     # Desabilitar Cifras fracos/vulneraveis
     SSLHonorCipherOrder On
     SSLCipherSuite ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS
 
-    # Desabilitar Checagem de Certificado - como o certificado do Tomcat é auto-assinado é necessário desativar a checagem de seu certificado, caso contrário o Apache recusará a conexão.
+Como o certificado do Tomcat é auto-assinado é necessário desativar a checagem de seu certificado, caso contrário o Apache recusará a conexão. Inserir fora do ``</VirtualHost>``::
+
     SSLProxyCheckPeerCN off
     SSLProxyCheckPeerName off
     SSLProxyCheckPeerExpire off
@@ -507,7 +509,7 @@ Por fim, caso não seja necessário, remova aplicações exemplo que vem com o T
 
 .. code-block:: xml
   :linenos:
-  :emphasize-lines: 10-13
+  :emphasize-lines: 9-12
 
       <!-- here, so be sure to include any of the default values that you wish  -->
       <!-- to use within your application.                                       -->
