@@ -317,13 +317,18 @@ Como o certificado do Tomcat é auto-assinado é necessário desativar a checage
     SSLProxyCheckPeerName off
     SSLProxyCheckPeerExpire off
 
+
+
+
 .. _NGINX:
 
 NGINX
 """"""
-Com este servidor web o Web Socket funciona normalmente.
+Com este servidor web o Web Socket funciona normalmente::
 
     yum -y install nginx
+    systemctl enable nginx
+
 
 Uma das formas para redirecionar o tráfego para HTTPS é comentar parte do arquivo::
 
@@ -372,6 +377,9 @@ Fazer as configurações no arquivo::
         }
     }
 
+Inicie o serviço::
+
+    systemctl start nginx
 
 Tomcat
 """"""
