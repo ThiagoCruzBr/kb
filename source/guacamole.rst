@@ -658,4 +658,8 @@ Reinicie o serviço para validar aplicar as configuraçôes e veja logs para mai
 
     systemctl restart tomcat
 
+Para garantir que tudo esteja bem quando reiniciar o servidor::
+
+    reboot
+
 Pronto! A aplicação pode ser utilizada.
