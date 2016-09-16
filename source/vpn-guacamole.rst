@@ -120,6 +120,7 @@ Componentes do Guacamole - dependências de pacotes
     mkdir -p /usr/share/tomcat/.guacamole/{extensions,lib}
     ln -s /etc/guacamole/extensions/guacamole-auth-jdbc-mysql-0.9.9.jar /usr/share/tomcat/.guacamole/extensions/
     ln -s /etc/guacamole/lib/mysql-connector-java-5.1.38-bin.jar /usr/share/tomcat/.guacamole/lib/
+    ln -s /etc/guacamole/extensions/guacamole-auth-ldap-0.9.9.jar /usr/share/tomcat/.guacamole/extensions/
     ln -s /etc/guacamole/guacamole.properties /usr/share/tomcat/.guacamole/
 
 .. _banco_de_dados:
@@ -145,7 +146,7 @@ A instalação do banco de dados e ajustes iniciais.
 
 * **Instalar banco** ::
 
-    yum -y install install mariadb-server
+    yum -y install mariadb-server
     systemctl start mariadb
     systemctl enable mariadb
 
@@ -483,7 +484,7 @@ Por fim, caso não seja necessário, remova aplicações exemplo que vem com o T
 
 * **Página de Erro** - para tratar páginas de erros, edite o arquivo abaixo e inclua as linhas em destaque::
 
-    vi /var/lib/tomcat/conf/web.xml
+    vi /etc/tomcat/conf/web.xml
 
 .. code-block:: xml
   :lineons:
