@@ -144,7 +144,7 @@ A instalação do banco de dados e ajustes iniciais.
 .. note:: Armazene as senhas em local seguro!
 
 
-* **Propriedades do Guacamole** - essas são as configurações iniciais para subir o serviço com o banco de dados. Mudanças neste arquivo tornam necessário reiniciar o Tomcat.::
+* **Propriedades do Guacamole** - essas são as configurações iniciais para subir o serviço com o banco de dados. Mudanças neste arquivo tornam necessário reiniciar o Tomcat.:
 
     echo "# Configurações do Banco MySQL" >> /etc/guacamole/guacamole.properties
     echo "mysql-hostname: localhost" >> /etc/guacamole/guacamole.properties
@@ -210,7 +210,7 @@ Os certificados aqui gerados e configurados serão utilizados logo a frente, par
 
 * **Tomcat** - certificado para o túnel entre o servidor web e o Tomcat.
 
-Gerar um certificado auto-assinado com o nome ``tomcat``, com validade de 90 dias. Ficará armazenado no diretório home do usuário corrente, dentro da keystore chamada ``.keystore``::
+Gerar um certificado auto-assinado com o nome ``tomcat``, com validade de 90 dias. Ficará armazenado no diretório 'home' do usuário corrente, dentro da keystore chamada ``.keystore``::
 
     keytool -genkey -alias tomcat -keyalg RSA
 
@@ -252,17 +252,18 @@ Para verificar se o certificado foi importado, liste os certificados do cacerts:
 
 Apache
 """""""""
-.. note:: WebSocket - Mesmo com a configuração de websocket (ws)  no Apache, o Web Socket não funcionou corretamente :(. Mas é possível utilizar o :ref:`NGINX`, faça sua escolha.
+.. note:: WebSocket - Mesmo com a configuração de websocket (ws)  no Apache, o Web Socket não funcionou devidamente, porém não impacta na utilização do Guacamole.  É possível também utilizar o :ref:`NGINX`, faça sua escolha.
 
-Será o serviço responsável por receber as solicitações do usuários e aplicando criptografia no canal (HTTPS) e encaminhar para o Tomcat. O encaminhamento (proxying) do Apache para o Tomcat é feito utilizando também criptografia. Uma configuração de exemplo do Apache poderá ser.
+Será o serviço responsável por receber as solicitações do usuários e aplicar criptografia no canal (HTTPS) e encaminhar para o Tomcat. O encaminhamento (proxying) do Apache para o Tomcat é feito utilizando também criptografia. Uma configuração de exemplo do Apache:
 
 * **ServerTokens** - ocultar informações sobre apache
-* **Strict-Transport-Security** - habilitar o HSTS:
-* **X-Frame-Options** - não permite que site site embutido (iframe) em outro site evitando ataques do tipo clickjacking.
+* **Strict-Transport-Security** - habilitar o HSTS para evitar certos tipos de ataque MITM
+* **X-Frame-Options** - não permite que site seja embutido (iframe) em outro site evitando ataques do tipo clickjacking.
 * **SetEnvIf** - definir o que não irá para log, para que não seja gerado muitos eventos que não são muito úteis. Caso de uma conexão é estabelecida e há tráfego de dados entre servidor guacamole e terminal remoto.::
 
     vi /etc/httpd/conf.d/guacamole.tckb.local.conf
 
+    # Server version: Apache/2.4.6 (CentOS
     ServerTokens Prod
     <VirtualHost *:80>
             ServerName guacamole.tckb.local
@@ -350,6 +351,7 @@ Fazer as configurações no arquivo::
 
     vi /etc/nginx/conf.d/guacamole.kos.local.conf
 
+    # nginx version: nginx/1.10.1
     map $http_upgrade $connection_upgrade {
     default upgrade;
     ''      close;
