@@ -579,12 +579,8 @@ Por fim, caso não seja necessário, remova aplicações exemplo que vem com o T
 
 * **Página de Erro** - para tratar páginas de erros, edite o arquivo abaixo e inclua as linhas em destaque::
 
-<<<<<<< HEAD:source/vpn-guacamole.rst
-    vi /etc/tomcat/conf/web.xml
-=======
     vi /usr/share/tomcat/conf/web.xml
 
->>>>>>> origin/master:source/guacamole.rst
 
 .. code-block:: xml
   :linenos:
