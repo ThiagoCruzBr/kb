@@ -399,7 +399,7 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
 
 .. code-block:: xml
   :linenos:
-  :emphasize-lines:
+  :emphasize-lines:17,21-22,55-58,74,78,80-81,115-119
 
     <?xml version='1.0' encoding='utf-8'?>
      <!--
