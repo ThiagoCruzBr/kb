@@ -389,7 +389,7 @@ Inicie o serviço::
 Tomcat
 """"""
 
-Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as configurações abaixo são feitas. Observe os itens em destaque (``amarelo``) que foram alterados:
+Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as configurações abaixo são feitas.
 
 * **Server > port** - destivar porta de shutdown
 * **Listener > SSLEngine** - habilitar SSL
@@ -398,7 +398,6 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
     vi /etc/tomcat/server.xml
 
 .. code-block:: xml
-   :emphasize-lines: 17,21-22,55-58,74,78,80-81,115-119
 
        <?xml version='1.0' encoding='utf-8'?>
            <!--
