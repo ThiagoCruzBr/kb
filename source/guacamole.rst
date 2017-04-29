@@ -144,7 +144,7 @@ A instalação do banco de dados e ajustes iniciais.
 .. note:: Armazene as senhas em local seguro!
 
 
-* **Propriedades do Guacamole** - essas são as configurações iniciais para subir o serviço com o banco de dados. Mudanças neste arquivo tornam necessário reiniciar o Tomcat.:
+* **Propriedades do Guacamole** - essas são as configurações iniciais para subir o serviço com o banco de dados. Mudanças neste arquivo tornam necessário reiniciar o Tomcat.::
 
     echo "# Configurações do Banco MySQL" >> /etc/guacamole/guacamole.properties
     echo "mysql-hostname: localhost" >> /etc/guacamole/guacamole.properties
@@ -399,7 +399,7 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
 
 .. code-block:: xml
   :linenos:
-  :emphasize-lines: 22,27-28,71-75,95-100,103-104,148-153
+  :emphasize-lines:
 
     <?xml version='1.0' encoding='utf-8'?>
      <!--
@@ -559,7 +559,6 @@ Para permitir que o tráfego entre o Apache e o Tomcat seja criptografado, as co
        </Service>
      </Server>
 
-
 * **Restringir Acesso** - para não permitir acesso direto ao Tomcat é necessário inserir o parâmetro abaixo (dentro do ``<Context>``)::
 
     vi /usr/share/tomcat/conf/context.xml
@@ -577,7 +576,7 @@ Por fim, caso não seja necessário, remova aplicações exemplo que vem com o T
 
 
 
-* **Página de Erro** - para tratar páginas de erros, edite o arquivo abaixo e inclua as linhas em destaque::
+* **Página de Erro** - para tratar páginas de erros, edite o arquivo abaixo e inclua as linhas em destaque.::
 
     vi /usr/share/tomcat/conf/web.xml
 
@@ -601,7 +600,7 @@ Por fim, caso não seja necessário, remova aplicações exemplo que vem com o T
     </web-app>
 
 
-Agora, crie a página de erro com o conteúdo de exemplo::
+Agora, crie a página de erro com o conteúdo de exemplo.::
 
     vi ../webapps/guacamole-0.9.9/error.html
 
