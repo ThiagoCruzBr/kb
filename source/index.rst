@@ -1,8 +1,8 @@
 Bem-Vindo a "Base de Conhecimento do TC"
 ==================================
-Esta é uma documentação sobre vários assuntos de meu interesse. Veja se algum deles é para ti.
+Esta é uma documentação, feita em formato RST, sobre vários assuntos de meu interesse. Veja se algum deles é para ti.
 
-.. note:: Este conteúdo está publicado em http://tckb.readthedocs.io/
+.. note:: Este conteúdo está publicado em https://tckb.readthedocs.io
 
 Conteúdos:
 
@@ -26,3 +26,10 @@ Conteúdos:
     :caption: Certificados Digitais
 
     CertificadosDigitais
+
+.. _OSSIM:
+    .. toctree::
+       :maxdepth: 1
+       :caption: Dashboards do OSSIM com PowerBI
+
+       docs/OSSIM/Dashboard
