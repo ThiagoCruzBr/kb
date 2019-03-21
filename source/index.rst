@@ -32,4 +32,4 @@ Conteúdos:
      :maxdepth: 1
      :caption: Dashboards do OSSIM com PowerBI
 
-     docs/OSSIM/Dashboard
+     Dashboard
