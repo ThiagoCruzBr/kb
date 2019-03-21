@@ -30,6 +30,6 @@ Conteúdos:
 .. _OSSIM:
 .. toctree::
      :maxdepth: 1
-     :caption: Dashboards do OSSIM com PowerBI
+     :caption: Painel de Segurança com OSSIM e PowerBI
 
-     Dashboard
+     OSSIM_Dashboard
