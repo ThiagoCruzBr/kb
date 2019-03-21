@@ -28,8 +28,8 @@ Conteúdos:
     CertificadosDigitais
 
 .. _OSSIM:
-    .. toctree::
-       :maxdepth: 1
-       :caption: Dashboards do OSSIM com PowerBI
+.. toctree::
+     :maxdepth: 1
+     :caption: Dashboards do OSSIM com PowerBI
 
-       docs/OSSIM/Dashboard
+     docs/OSSIM/Dashboard
