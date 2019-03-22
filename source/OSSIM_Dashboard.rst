@@ -16,12 +16,14 @@ no `Microsoft PowerBI Desktop <https://powerbi.microsoft.com>`_ conforme sua nec
 
 
 Em resumo, para alcançar isto é necessário:
+
 * **OSSIM** - ferramenta instalada com varreduras já realizadas obviamente
+
 * **Base de Dados** - possuir acesso a base de dados do OSSIM
+
 * **PowerBI** - conhecer a ferramenta para criar relacionamentos entre dados
 e personalizar painéis
 
-.. note:: A base de dados utilizada neste tutorial foi em **MySQL**.
 
 
 Coleta de Dados via Power BI
@@ -31,6 +33,7 @@ Os procedimentos para a coleta dos dados via Power BI.
 .. note:: **Usuário/Senha** - recomenda-se uma conta somente de leitura para acesso a base.
 
  **MySQL** - foi a base de dados utilizada neste tutorial.
+ 
 
 * **Driver de Conexão com Banco** - para que o Power BI consiga ler dados do
 banco de dados é necessário instalar um conector:
@@ -41,7 +44,7 @@ banco de dados é necessário instalar um conector:
 porém se deseja acessar a base (restrita somente para o servidor do OSSIM) via
 túnel SSH, é necessário:
     * **Resolução de Nome** - alterar a configuração do banco de dados
-(```/etc/mysql/my.cnf``), alterando o parâmetro ``skip_name_resolve`` para::
+(```/etc/mysql/my.cnf``), alterando o parâmetro ``skip_name_resolve`` para
 ``#skip_name_resolve``.
 
     * **Túnel SSH** - para acessar a base, que está disponível apenas localmente no servidor, faça uma conexão SSH com o servidor tunelando a porta do MySQL
@@ -50,7 +53,7 @@ túnel SSH, é necessário:
 * **Tabelas e Colunas** - ao conectar na base de dados ``alienvault``, foram
 selecionadas algumas tabelas continham informações relevantes (para mim), sendo elas:
     * **alienvault_vuln_nessus_category**
-    * **alienvault_vuln_nessus_family** 
+    * **alienvault_vuln_nessus_family**
     * **alienvault_vuln_nessus_plugins**
     * **alienvault_vuln_nessus_results**
 
