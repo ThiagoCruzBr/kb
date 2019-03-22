@@ -21,8 +21,7 @@ Em resumo, para alcançar isto é necessário:
 
 * **Base de Dados** - possuir acesso a base de dados do OSSIM
 
-* **PowerBI** - conhecer a ferramenta para criar relacionamentos entre dados
-e personalizar painéis
+* **PowerBI** - conhecer a ferramenta para criar relacionamentos entre dados e personalizar painéis
 
 
 
@@ -33,16 +32,14 @@ Os procedimentos para a coleta dos dados via Power BI.
 .. note:: **Usuário/Senha** - recomenda-se uma conta somente de leitura para acesso a base.
 
  **MySQL** - foi a base de dados utilizada neste tutorial.
- 
 
-* **Driver de Conexão com Banco** - para que o Power BI consiga ler dados do
-banco de dados é necessário instalar um conector:
+
+* **Driver de Conexão com Banco** - para que o Power BI consiga ler dados do banco de dados é necessário instalar um conector:
     * **Conector MySQL** - https://dev.mysql.com/downloads/connector/net/
 
 
-* **Conexão com a Base de Dados** - caso tenha acesso a base pule essa etapa,
-porém se deseja acessar a base (restrita somente para o servidor do OSSIM) via
-túnel SSH, é necessário:
+* **Conexão com a Base de Dados** - caso tenha acesso a base pule essa etapa, porém se deseja acessar a base (restrita somente para o servidor do OSSIM) via túnel SSH, é necessário:
+
     * **Resolução de Nome** - alterar a configuração do banco de dados
 (```/etc/mysql/my.cnf``), alterando o parâmetro ``skip_name_resolve`` para
 ``#skip_name_resolve``.
@@ -50,8 +47,7 @@ túnel SSH, é necessário:
     * **Túnel SSH** - para acessar a base, que está disponível apenas localmente no servidor, faça uma conexão SSH com o servidor tunelando a porta do MySQL
 
 
-* **Tabelas e Colunas** - ao conectar na base de dados ``alienvault``, foram
-selecionadas algumas tabelas continham informações relevantes (para mim), sendo elas:
+* **Tabelas e Colunas** - ao conectar na base de dados ``alienvault``, foram selecionadas algumas tabelas continham informações relevantes (para mim), sendo elas:
     * **alienvault_vuln_nessus_category**
     * **alienvault_vuln_nessus_family**
     * **alienvault_vuln_nessus_plugins**
@@ -68,10 +64,7 @@ selecionadas algumas tabelas continham informações relevantes (para mim), send
 
 
 
-Depois de importado os dados e analisado seu conteúdo, observa-se as PKs
-(chaves primárias) de forma a criar o relacionamento entre as tabelas.
-Abaixo, a visão final de como ficaram os relacionamentos entre as tabelas e
-algumas (tabelas e colunas) criadas adicionalmente explicadas logo a seguir.
+Depois de importado os dados e analisado seu conteúdo, observa-se as PKs (chaves primárias) de forma a criar o relacionamento entre as tabelas. Abaixo, a visão final de como ficaram os relacionamentos entre as tabelas e algumas (tabelas e colunas) criadas adicionalmente explicadas logo a seguir.
 
 .. figure:: OSSIM_Relacionamentos.png
     :scale: 80 %
@@ -80,12 +73,9 @@ algumas (tabelas e colunas) criadas adicionalmente explicadas logo a seguir.
 
     Relacionamento de tabelas no PowerBI.
 
-Foram criadas algumas tabelas e colunas para que fosse possível atender a certas
-necessidades, sendo elas:
+Foram criadas algumas tabelas e colunas para que fosse possível atender a certas necessidades, sendo elas:
 
-* **Data do Scan** - como a data da varredura estava em um formato que não era
-possível hierarquizá-las, foi criada uma nova coluna separando a data na tabela
- `alienvault_vuln_nessus_results` na sintaxe DAX::
+* **Data do Scan** - como a data da varredura estava em um formato que não era possível hierarquizá-las, foi criada uma nova coluna separando a data na tabela ``alienvault_vuln_nessus_results` na sintaxe DAX::
 
 
     Data_Scan = DATE(
@@ -94,8 +84,7 @@ possível hierarquizá-las, foi criada uma nova coluna separando a data na tabel
                      RIGHT(LEFT('alienvault vuln_nessus_results'[scantime];8);2)) //Dia
 
 
-* **SubRedes** - para que fosse possível analisar vulnerabilidade por rede.
-Foi criada a nova coluna abaixo utilizando sintaxe DAX::
+* **SubRedes** - para que fosse possível analisar vulnerabilidade por rede. Foi criada a nova coluna abaixo utilizando sintaxe DAX::
 
     subnet = PATHITEM(SUBSTITUTE('alienvault vuln_nessus_results'[hostIP];".";"|");1) & // Primeiro Octeto
              "." &
