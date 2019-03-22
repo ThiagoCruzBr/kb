@@ -1,6 +1,6 @@
 Painel de Segurança com OSSIM e PowerBI
 ===============================
-Para quem usa a ferramenta `AlienVault OSSIM <https://www.alienvault.com/products/ossim>`_ e acha um tanto complicado gerar relatórios utilizando os recursos nativos, é possível coletar os dados e montar painéis no `Microsoft PowerBI Desktop <https://powerbi.microsoft.com>`_, conforme sua necessidade. Além de uma flexibilidade no tratamento dos dados permite também análises rápidas e precisas.
+Para quem usa a ferramenta `AlienVault OSSIM <https://www.alienvault.com/products/ossim>`_ e acha um tanto complicado gerar relatórios utilizando os recursos nativos, é possível coletar os dados e montar painéis no `Microsoft PowerBI Desktop <https://powerbi.microsoft.com>`_, conforme sua necessidade. Além de uma flexibilidade no tratamento dos dados, análises tornam-se rápidas e precisas.
 
 
 .. figure:: Painel_OSSIM_PBI.png
@@ -72,7 +72,7 @@ Depois de importado os dados e analisado seu conteúdo, observa-se as PKs (chave
 
 Foram criadas algumas tabelas e colunas para que fosse possível atender a certas necessidades, sendo elas:
 
-* **Data do Scan** - como a data da varredura estava em um formato que não era possível hierarquizá-las, foi criada uma nova coluna separando na tabela ``alienvault_vuln_nessus_results`` na sintaxe DAX::
+* **Data do Scan** - como a data da varredura estava em um formato que não era possível hierarquizá-las, foi criada uma nova coluna na tabela ``alienvault_vuln_nessus_results`` na sintaxe DAX::
 
 
     Data_Scan = DATE(
@@ -81,7 +81,7 @@ Foram criadas algumas tabelas e colunas para que fosse possível atender a certa
                      RIGHT(LEFT('alienvault vuln_nessus_results'[scantime];8);2)) //Dia
 
 
-* **IPs por SubRede** - para que fosse possível analisar vulnerabilidade por rede. Foi criada outra coluna na tabela ``alienvault vuln_nessus_results`` utilizando sintaxe DAX que separa exclui o último octeto::
+* **IPs por SubRede** - para que fosse possível analisar vulnerabilidade por rede. Foi criada outra coluna na tabela ``alienvault vuln_nessus_results`` utilizando sintaxe DAX que exclui o último octeto::
 
     subnet = PATHITEM(SUBSTITUTE('alienvault vuln_nessus_results'[hostIP];".";"|");1) & // Primeiro Octeto
              "." &
@@ -93,9 +93,9 @@ Foram criadas algumas tabelas e colunas para que fosse possível atender a certa
 .. note:: Para segmentação de redes com máscaras mais fechadas, por exemplo /25, um tratamento correto deve ser feito.
 
 
-De forma a permitir filtros por IPs, riscos com nomes personalizados e também poder agrupar IPs por sub-redes, de acordo com o ambiente (exemplo: Rede A, Rede B, Rede C), foram criadas colunas adicionais, criando-se relacionamentos com as da base do OSSIM.
+De forma a permitir filtros por IPs, riscos com nomes personalizados e também poder agrupar IPs por sub-redes, de acordo com o ambiente (exemplo: Rede A, Rede B, Rede C), foram inseridas tabelas adicionais, criando-se relacionamentos com as da base do OSSIM.
 
-* **dIPs** - criada a tabela ``dIPs`` contendo todos IPs do ambiente. Isto foi necessário para que o filtro cruzado com a tabela ``dSubRedes`` fosse possível, isto é, que os IPs pudesse ser agrupado em uma rede específica.
+* **dIPs** - criada a tabela ``dIPs`` contendo todos IPs do ambiente. Isto foi necessário para que o filtro cruzado com a tabela ``dSubRedes`` fosse possível, isto é, que os IPs pudessem ser agrupado em uma rede específica.
 
 * **dSubRedes** - criada a tabela ``dSubRedes``, com base nos dados extraídos da ferramenta IPAM, na qual continha todas as definições de sub-redes, permitindo que filtros por sub-rede no PowerBI fossem feitos
 
