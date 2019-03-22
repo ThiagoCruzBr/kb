@@ -36,25 +36,22 @@ Os procedimentos para a coleta dos dados via Power BI.
 
 * **Driver de Conexão com Banco** - para que o Power BI consiga ler dados do banco de dados é necessário instalar um conector:
 
-    * **Conector MySQL** - https://dev.mysql.com/downloads/connector/net/
+  * **Conector MySQL** - https://dev.mysql.com/downloads/connector/net/
 
 
 * **Conexão com a Base de Dados** - caso tenha acesso a base pule essa etapa, porém se deseja acessar a base (restrita somente para o servidor do OSSIM) via túnel SSH, é necessário:
 
-    * **Resolução de Nome** - alterar a configuração do banco de dados (```/etc/mysql/my.cnf``), alterando o parâmetro ``skip_name_resolve`` para ``#skip_name_resolve``.
+  * **Resolução de Nome** - alterar a configuração do banco de dados (```/etc/mysql/my.cnf``), alterando o parâmetro ``skip_name_resolve`` para ``#skip_name_resolve``.
 
-    * **Túnel SSH** - para acessar a base, que está disponível apenas localmente no servidor, faça uma conexão SSH com o servidor tunelando a porta do MySQL
+  * **Túnel SSH** - para acessar a base, que está disponível apenas localmente no servidor, faça uma conexão SSH com o servidor tunelando a porta do MySQL
 
 
 * **Tabelas e Colunas** - ao conectar na base de dados ``alienvault``, foram selecionadas algumas tabelas continham informações relevantes (para mim), sendo elas:
 
-    * **alienvault_vuln_nessus_category**
-
-    * **alienvault_vuln_nessus_family**
-
-    * **alienvault_vuln_nessus_plugins**
-
-    * **alienvault_vuln_nessus_results**
+  * **alienvault_vuln_nessus_category**
+  * **alienvault_vuln_nessus_family**
+  * **alienvault_vuln_nessus_plugins**
+  * **alienvault_vuln_nessus_results**
 
 
 .. figure:: OSSIM_Tabelas.png
